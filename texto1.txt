@@ -1,0 +1,4 @@
+eric  20
+mario  18
+esperanza 20
+patricia 18
