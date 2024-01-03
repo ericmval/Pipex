@@ -2,7 +2,7 @@
 NAME =	pipex
 CFLAGS =	-Wall -Wextra -Werror -g
 SOURCES = src/main.c \
-		src/get_command_path.c
+		src/proces.c
 
 HEADER = pipex.h 
 

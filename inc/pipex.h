@@ -25,7 +25,9 @@ ejemplo de uso:\npipex archivo1 comando1 comando2 archivo2\n"
 # define WRITE_END 1
 
 void  ft_error(int status, char *str, int exit);
-int porces_child(char *file, char *cmd, int pipefd[2]);
-char *get_command_path(const char *command, char *result);
+void porces_child(char *file, char *cmd, int pipefd[2], char **env);
+char	*take_string(char **split, char *cmd);
+char	*get_full_command(char *cmd, char *env[]);
+char	*check_access(char *cmd);
 
 #endif
