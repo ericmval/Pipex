@@ -20,34 +20,40 @@ void  ft_error(int status, char *str, int Nexit)
 int	main(int argc, char **argv, char *env[])
 {
 	int pipefd[2];
-//	pid_t pid;
-//	int 	status;
+	pid_t pid;
+	int 	status;
 	
 	if (argc != 5)
 		ft_error(1, HELPMSG, 1);
-//	ft_printf("
-//	if (pipe(pipefd) == -1)
-//		ft_error(2,"fallo al crear pipe", 2);
-//	pid = fork();
-//	if (pid == -1)
-//		ft_error(2,"fallo al crear fork", 2);
-//	if (pid >= 0)
-	porces_child(argv[1],argv[2], pipefd, env);
-//	waitpid(pid,NULL, 0);
-	ft_printf("aqui empieza porceso padre\n");
-//	printf("%d\n",pid);
-	
-	ft_printf("%s %s %s %s \n",argv[1],argv[2],argv[3],argv[4]);
-//	ft_printf("%s  \n",env[3]);
-	return (0);
+	if (pipe(pipefd) == -1)
+		ft_error(2,"fallo al crear pipe", 2);
+	pid = fork();
+	if (pid == -1)
+		ft_error(2,"fallo al crear fork", 2);
+	if (pid == 0)
+		porces_child(argv[1],argv[2], pipefd, env);
+	else
+	{
+		wait(&status);
+		ft_printf("aqui empieza porceso padre\n");
+		ft_printf("%s %s %s %s \n",argv[1],argv[2],argv[3],argv[4]);
+		return (0);
+	}
 }
 
 void porces_child(char *file, char *cmd, int pipefd[2], char **env)
 {
     int fd_file;
-	char **all_args;
+	char *all_args[3];
 	pipefd[0] = 0;
 	pipefd[1] = 1;
+//	char *fully;
+	
+	all_args[0] = cmd;
+	all_args[1] = file;
+	all_args[2] = NULL;
+
+
 
 	
 
@@ -61,10 +67,12 @@ void porces_child(char *file, char *cmd, int pipefd[2], char **env)
 //		ft_error(-1,"erro al cerrar pipe de lectura", 2);
 //	if (close( STDOUT_FILENO) < 0 )
 //		ft_error(-1,"erro al cerrar pipe de lectura", 2);
-    all_args = ft_split(cmd, ' ');
-	if (!all_args)
-		ft_error(2,"fallo al crear fork", 2);
+//    all_args = ft_split(cmd, ' ');
+//	if (!all_args)
+//		ft_error(2,"fallo al crear la lista", 2);
+//	fully = get_full_command(all_args[0], env);
+//	execve(fully, all_args, NULL);
+	ft_printf("termina el hijo antes del execve\n");
 	if (execve(get_full_command(all_args[0], env), all_args, env) == -1)
 		ft_error(2,"fallo al ejecutar execve", 2);
-//    exit (0);
 }
