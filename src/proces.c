@@ -66,3 +66,33 @@ char	*check_access(char *cmd)
 		exit (126);
 	return (NULL);
 }
+
+char	**get_second_execve(char *cmd, char *file)
+{
+	char	*str_mid;
+	char	*str_mid2;
+	char	**out;
+
+	str_mid = ft_strjoin(cmd, " ");
+	str_mid2 = ft_strjoin(str_mid, file);
+	out = ft_split(str_mid2, 32);
+	free (str_mid);
+	free (str_mid2);
+	return(out);
+}
+
+char	*ft_clean_cmd(char *cmd)
+{
+	char **dirt_cmd;
+	char *clean_cmd;
+
+	if (!ft_strchr(cmd, 32))
+		return(cmd);
+	else
+	{
+		dirt_cmd = ft_split(cmd, 32);
+		clean_cmd = dirt_cmd[0];
+		free (dirt_cmd);
+		return (clean_cmd);
+	}
+}

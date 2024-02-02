@@ -26,8 +26,11 @@ ejemplo de uso:\npipex archivo1 comando1 comando2 archivo2\n"
 
 void  ft_error(int status, char *str, int exit);
 void porces_child(char *file, char *cmd, int pipefd[2], char **env);
+void porces_father(char *file, char *cmd, int pipefd[2], char **env);
 char	*take_string(char **split, char *cmd);
 char	*get_full_command(char *cmd, char *env[]);
 char	*check_access(char *cmd);
+char	**get_second_execve(char *cmd, char *file);
+char	*ft_clean_cmd(char *cmd);
 
 #endif
