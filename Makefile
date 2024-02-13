@@ -53,3 +53,7 @@ re:
 	make fclean -C ${LIBFT_DIR}
 	make fclean -C ${PRINTF_DIR}
 	make
+
+leak:
+	gcc -g -fsanitize=address  ${SOURCES} -L ${LIBS_DIR} -lft -lftprintf -o testm	
+	

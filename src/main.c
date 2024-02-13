@@ -51,7 +51,11 @@ void porces_child(char *file, char *cmd, char **env)
     int fd_file;
 	char *clean_cmd;
 
+	if (access(file,R_OK) != 0 )
+		ft_error(126, "No se puede abrir archivo ", 2);
 	fd_file = open("aux", O_WRONLY | O_CREAT, 0644);
+	if (fd_file == -1)
+		ft_error(1,"error al abrir archivo", 2);
 	clean_cmd = ft_clean_cmd(cmd);
     dup2(fd_file, STDOUT_FILENO);
 	if (execve(get_full_command(clean_cmd, env), get_second_execve(cmd, file), env) == -1)
@@ -66,6 +70,8 @@ void porces_father(char *file, char *cmd, char **env, char *endfile)
 
 	clean_cmd = ft_clean_cmd(cmd);
 	fd_file = open(endfile, O_WRONLY | O_CREAT, 0644);
+	if (fd_file == -1)
+		ft_error(1,"error al abrir archivo", 2);
 	dup2(fd_file, STDOUT_FILENO);
 	if (execve(get_full_command(clean_cmd, env), get_second_execve(cmd, file), env) == -1)
 		ft_error(2,"fallo al ejecutar execve", 2);
