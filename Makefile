@@ -55,5 +55,7 @@ re:
 	make
 
 leak:
-	gcc -g -fsanitize=address  ${SOURCES} -L ${LIBS_DIR} -lft -lftprintf -o testm	
+	gcc -g -fsanitize=address  ${SOURCES} -L ${LIBS_DIR} -lft -lftprintf -o testm
+	valgrind ./testm t1 "grep e" "grep 2 -c" t2
+	
 	
